@@ -26,7 +26,7 @@
           <label>limits: {</label>
             <label>start:</label><input type="text" v-model="limitsStart"><span>,</span>
             <label>end:&nbsp;&nbsp;</label><input type="text" v-model="limitsEnd">
-          <label>},</label>
+          <label>}</label>
         </div>
       </pre>
     </section>
@@ -189,14 +189,19 @@ html, body {
       display: block;
       margin: auto;
       position: relative;
-      top: 25px;
+      top: 20px;
     }
   }
   > section {
     flex-basis: 50%;
     &:last-child {
+      position: relative;
       h2 {
         margin-top:0;
+        position: absolute;
+        top: -100px;
+        left: 50%;
+        transform: translateX(-50%);
       }
     }
   }
