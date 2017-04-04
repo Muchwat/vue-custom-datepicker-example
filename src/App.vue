@@ -24,8 +24,8 @@
         </div>
         <div class="limits">
           <label>limits: {</label>
-            <label>start:</label><input type="text" name="limitsStart"><span>,</span>
-            <label>end:&nbsp;&nbsp;</label><input type="text" name="limitsStart">
+            <label>start:</label><input type="text" v-model="limitsStart"><span>,</span>
+            <label>end:&nbsp;&nbsp;</label><input type="text" v-model="limitsEnd">
           <label>},</label>
         </div>
       </pre>
@@ -41,6 +41,7 @@
           :wrapperStyles = "wrapperStyles"
           :headerStyles  = "headerStyles"
           :weekdayStyles = "weekdayStyles"
+          :limits        = "limits"
         />
       </div>
     </section>
@@ -105,7 +106,9 @@ export default {
       primaryColor: colorProps,
       selectedDate: moment(),
       dateFormat: "YYYY-MM-DD",
-      colorSelectorOpen: false
+      colorSelectorOpen: false,
+      limitsStart: "",
+      limitsEnd: ""
     }
   },
   computed: {
@@ -128,6 +131,12 @@ export default {
     },
     weekdayStyles() {
       return parseStyles(this.weekdayStylesString)
+    },
+    limits() {
+      return {
+        start: this.limitsStart,
+        end: this.limitsEnd
+      }
     }
   },
   methods: {
@@ -198,13 +207,14 @@ html, body {
   box-shadow: rgba(0, 0, 0, 0.188235) 0px 10px 30px, rgba(0, 0, 0, 0.227451) 0px 6px 10px;
   font-family: 'Titillium Web', sans-serif;
   color: white;
+  font-size: 1.1em;
   > pre {
     display: flex;
     flex-wrap: wrap;
     margin-top: 50px;
     > div {
       flex-basis: 100%;
-      margin: -10px auto;
+      margin: -15px auto;
       text-align: left;
       position: relative;
     }
@@ -230,8 +240,14 @@ input, textarea {
   }
 }
 
+.limits {
+  input {
+    width: 345px;
+  }
+}
+
 textarea {
-  width: 400px;
+  width: 412.5px;
   height: 50px;
 }
 
