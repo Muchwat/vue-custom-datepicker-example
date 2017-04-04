@@ -4,7 +4,6 @@
       <h1>Vue Custom Datepicker</h1>
       <pre>
         <div>
-          <label>date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" v-model="date"><span>,</span>
           <label>primaryColor:</label><input @click.stop="showColorSelector" class="color-input" :value="calPrimaryColor" readonly/><span>,</span><Swatches v-if="colorSelectorOpen" v-model="primaryColor" @change-color="changeColor" />
           <label>dateFormat:&nbsp;&nbsp;</label><input type="text" v-model="dateFormat"><span>,</span>
         </div>
@@ -33,7 +32,7 @@
     </section>
     <section>
       <div class="calendar">
-        <h2>{{ selectedDate }}</h2>
+        <h2>{{ formattedDate }}</h2>
         <CustomDatepicker 
           @dateSelected  = "setDate($event)"
           :date          = "selectedDate" 
@@ -83,13 +82,12 @@ export default {
   },
   data () {
     return {
-      date: moment(),
       headerStyles: {},
       weekdayStyles: {},
       wrapperStyles: {},
       primaryColor: colorProps,
+      selectedDate: moment(),
       dateFormat: "YYYY-MM-DD",
-      dateString: "",
       colorSelectorOpen: false
     }
   },
@@ -106,12 +104,12 @@ export default {
       return this.primaryColor.hex
     },
     formattedDate() {
-      return this.date.format(this.dateFormat)
+      return moment(this.selectedDate).format(this.dateFormat)
     }
   },
   methods: {
     setDate(date) {
-      this.date = date
+      this.selectedDate = date
     },
     changeColor(val) {
       this.primaryColor = val
