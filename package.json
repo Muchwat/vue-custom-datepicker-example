@@ -11,6 +11,7 @@
   "dependencies": {
     "moment": "^2.18.1",
     "vue": "^2.2.1",
+    "vue-color": "^2.0.7",
     "vue-custom-datepicker": "^1.0.3"
   },
   "devDependencies": {
@@ -22,6 +23,7 @@
     "file-loader": "^0.9.0",
     "node-sass": "^4.5.0",
     "sass-loader": "^5.0.1",
+    "style-loader": "^0.16.1",
     "vue-loader": "^11.1.4",
     "vue-template-compiler": "^2.2.1",
     "webpack": "^2.2.0",
