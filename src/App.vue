@@ -9,17 +9,17 @@
         </div>
         <div>
           <label>wrapperStyles: {</label>
-          <input type="text" name="wrapperStyles">
+          <textarea type="text" v-model="wrapperStylesString" />
           <label>},</label>
         </div>
         <div>
           <label>headerStyles: {</label>
-          <input type="text" name="headerStyles">
+          <textarea type="text" v-model="headerStylesString" />
           <label>},</label>
         </div>
         <div>
           <label>weekdayStyles: {</label>
-          <input type="text" name="weekdayStyles">
+          <textarea type="text" v-model="weekdayStylesString" />
           <label>},</label>
         </div>
         <div class="limits">
@@ -39,6 +39,8 @@
           :primaryColor  = "calPrimaryColor"
           :dateFormat    = "dateFormat"
           :wrapperStyles = "wrapperStyles"
+          :headerStyles  = "headerStyles"
+          :weekdayStyles = "weekdayStyles"
         />
       </div>
     </section>
@@ -74,6 +76,21 @@ const colorProps = {
   a: 1
 }
 
+const parseStyles = (stylesString) => {
+  let attrs = {}
+  stylesString.split(/,(?=(?:(?:[^'"]*(?:'|")){2})*[^'"]*$)/).map((attribute) => {
+    try {
+      let vals = attribute.split(":")
+      attrs[vals[0].trim()] = eval(vals[1].trim())
+    }
+    catch (e) {
+     console.log(e)
+    }
+  })
+  console.log(attrs)
+  return attrs
+}
+
 export default {
   name: 'app',
   components: {
@@ -82,9 +99,9 @@ export default {
   },
   data () {
     return {
-      headerStyles: {},
-      weekdayStyles: {},
-      wrapperStyles: {},
+      wrapperStylesString: "width:'325px'",
+      headerStylesString: "",
+      weekdayStylesString: "fontWeight:'100'",
       primaryColor: colorProps,
       selectedDate: moment(),
       dateFormat: "YYYY-MM-DD",
@@ -97,14 +114,20 @@ export default {
         background: this.primaryColor.hex
       }
     },
-    inputDate() {
-
-    },
     calPrimaryColor() {
       return this.primaryColor.hex
     },
     formattedDate() {
       return moment(this.selectedDate).format(this.dateFormat)
+    },
+    wrapperStyles() {
+      return parseStyles(this.wrapperStylesString)
+    },
+    headerStyles() {
+      return parseStyles(this.headerStylesString)
+    },
+    weekdayStyles() {
+      return parseStyles(this.weekdayStylesString)
     }
   },
   methods: {
@@ -188,7 +211,7 @@ html, body {
   }
 }
 
-input {
+input, textarea {
   background: rgba(0,0,0,0.2);
   border: none;
   outline: none;
@@ -197,11 +220,19 @@ input {
   color: white;
   font-family: monospace;
   white-space: pre;
+  font-size: 1em;
+  max-width: 100%;
+  width: 300px;
   + span {
     position: relative;
     top:7.5px;
     left: -15px;
   }
+}
+
+textarea {
+  width: 400px;
+  height: 50px;
 }
 
 .color-input {
