@@ -227,7 +227,7 @@ html, body {
 }
 
 input, textarea {
-  background: rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.12);
   border: none;
   outline: none;
   padding: 5px 10px;
