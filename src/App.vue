@@ -213,6 +213,7 @@ html, body {
   font-family: 'Titillium Web', sans-serif;
   color: white;
   font-size: 1.1em;
+  transition: all 0.4s ease-in-out;
   > pre {
     display: flex;
     flex-wrap: wrap;
