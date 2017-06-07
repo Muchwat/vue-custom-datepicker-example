@@ -4,6 +4,9 @@
       <h1>Vue Custom Datepicker</h1>
       <pre>
         <div>
+          <label>dateRange:</label><md-checkbox class="md-primary" name="dateRange" v-model="dateRange">Check to turn on range select</md-checkbox>
+        </div>
+        <div>
           <label>primaryColor:</label><input @click.stop="showColorSelector" class="color-input" :value="calPrimaryColor" readonly/><span>,</span><Swatches v-if="colorSelectorOpen" v-model="primaryColor" @change-color="changeColor" />
           <label>dateFormat:&nbsp;&nbsp;</label><input type="text" v-model="dateFormat"><span>,</span>
         </div>
@@ -32,16 +35,18 @@
     </section>
     <section>
       <div class="calendar">
-        <h2>{{ formattedDate }}</h2>
+        <h2>{{ dateRange ? formattedDateRange : formattedDate }}</h2>
         <CustomDatepicker 
-          @dateSelected  = "setDate($event)"
-          :date          = "selectedDate" 
-          :primaryColor  = "calPrimaryColor"
-          :dateFormat    = "dateFormat"
-          :wrapperStyles = "wrapperStyles"
-          :headerStyles  = "headerStyles"
-          :weekdayStyles = "weekdayStyles"
-          :limits        = "limits"
+          @dateSelected       = "setDate($event)"
+          @dateRangeSelected  = "setDateRange($event)"
+          :date               = "selectedDate" 
+          :dateRange          = "dateRange" 
+          :primaryColor       = "calPrimaryColor"
+          :dateFormat         = "dateFormat"
+          :wrapperStyles      = "wrapperStyles"
+          :headerStyles       = "headerStyles"
+          :weekdayStyles      = "weekdayStyles"
+          :limits             = "limits"
         />
       </div>
     </section>
@@ -49,10 +54,14 @@
 </template>
 
 <script>
-import vue from 'vue'
+import Vue from 'vue';
+import VueMaterial from 'vue-material';
 import CustomDatepicker from 'vue-custom-datepicker'
 import moment from 'moment'
 import { Swatches } from 'vue-color'
+import 'vue-material/dist/vue-material.css';
+
+Vue.use(VueMaterial);
 
 const colorProps = {
   hex: '#0918bc',
@@ -88,7 +97,6 @@ const parseStyles = (stylesString) => {
      console.log(e)
     }
   })
-  console.log(attrs)
   return attrs
 }
 
@@ -100,11 +108,14 @@ export default {
   },
   data () {
     return {
+      dateRange: false,
       wrapperStylesString: "width:'325px'",
       headerStylesString: "",
       weekdayStylesString: "fontWeight:'100'",
       primaryColor: colorProps,
       selectedDate: moment(),
+      selectedDateRangeStart: moment(),
+      selectedDateRangeEnd: null,
       dateFormat: "YYYY-MM-DD",
       colorSelectorOpen: false,
       limitsStart: "",
@@ -122,6 +133,11 @@ export default {
     },
     formattedDate() {
       return moment(this.selectedDate).format(this.dateFormat)
+    },
+    formattedDateRange() {
+      const start = moment(this.selectedDateRangeStart).format(this.dateFormat);
+      const end   = this.selectedDateRangeEnd ? moment(this.selectedDateRangeEnd).format(this.dateFormat) : '...';
+      return `${start} to ${end}`;
     },
     wrapperStyles() {
       return parseStyles(this.wrapperStylesString)
@@ -142,6 +158,10 @@ export default {
   methods: {
     setDate(date) {
       this.selectedDate = date
+    },
+    setDateRange(range) {
+      this.selectedDateRangeStart = range.start;
+      this.selectedDateRangeEnd = range.end;
     },
     changeColor(val) {
       this.primaryColor = val
@@ -212,7 +232,7 @@ html, body {
   box-shadow: rgba(0, 0, 0, 0.188235) 0px 10px 30px, rgba(0, 0, 0, 0.227451) 0px 6px 10px;
   font-family: 'Titillium Web', sans-serif;
   color: white;
-  font-size: 1.1em;
+  font-size: 1em;
   transition: all 0.4s ease-in-out;
   > pre {
     display: flex;
@@ -268,4 +288,19 @@ textarea {
   left: 25%;
   border-radius: 2px;
 }
+
+.md-checkbox .md-checkbox-container {
+  border: 2px solid rgba(255,255,255, 0.74) !important;
+  margin-left: 2em; 
+}
+
+.md-checkbox {
+  margin: 10px 25px !important;
+}
+
+.md-theme-default.md-checkbox.md-primary.md-checked .md-checkbox-container {
+  background-color: rgba(0,0,0,0.2) !important;
+}
+
+
 </style>
