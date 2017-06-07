@@ -25365,13 +25365,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     dateRange: {
       type: Boolean,
-      default() {
+      default: function _default() {
         return false;
       }
     },
     limits: {
       type: Object,
-      default() {
+      default: function _default() {
         return {
           start: null,
           end: null
@@ -25380,13 +25380,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     dateFormat: {
       type: String,
-      default() {
+      default: function _default() {
         return 'YYYY-MM-DD';
       }
     },
     primaryColor: {
       type: String,
-      default() {
+      default: function _default() {
         return "#ff5a5f";
       }
     },
@@ -25407,7 +25407,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     activeDateTextColor: {
       type: String,
-      default() {
+      default: function _default() {
         return 'white';
       }
     },
@@ -25415,7 +25415,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       type: String
     }
   },
-  data() {
+  data: function data() {
     return {
       displayDate: this.getInitialDate(this.date),
       selectedDate: this.getInitialDate(this.date),
@@ -25425,14 +25425,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       weekdayLabels: ['m', 't', 'w', 't', 'f', 's', 's']
     };
   },
+
   computed: {
-    daysConstructor() {
-      let days = [],
+    daysConstructor: function daysConstructor() {
+      var days = [],
           currentDay = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.displayDate).startOf('month').day(1);
 
-      for (let i = 0; i < 42; i++) {
-        const dayMoment = __WEBPACK_IMPORTED_MODULE_0_moment___default()(currentDay);
-        const properties = {
+      for (var i = 0; i < 42; i++) {
+        var dayMoment = __WEBPACK_IMPORTED_MODULE_0_moment___default()(currentDay);
+        var properties = {
           disabled: this.isDisabled(dayMoment),
           active: this.isActiveDay(dayMoment),
           activeRangeStart: this.isActiveRangeDay(dayMoment, true),
@@ -25440,7 +25441,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           withinActiveRange: this.isWithinActiveRange(dayMoment),
           today: dayMoment.format('MM-DD-YYYY') === this.today.format('MM-DD-YYYY')
         };
-        const dayObj = Object.assign(dayMoment, properties);
+        var dayObj = Object.assign(dayMoment, properties);
 
         days.push(dayObj);
         currentDay.add(1, 'days');
@@ -25449,43 +25450,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   methods: {
-    getInitialDate(date) {
+    getInitialDate: function getInitialDate(date) {
       return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).isValid() ? __WEBPACK_IMPORTED_MODULE_0_moment___default()(date) : __WEBPACK_IMPORTED_MODULE_0_moment___default()();
     },
-    getInitialDateRange(date, add) {
-      const initialDate = __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).isValid() ? __WEBPACK_IMPORTED_MODULE_0_moment___default()(date) : __WEBPACK_IMPORTED_MODULE_0_moment___default()();
+    getInitialDateRange: function getInitialDateRange(date, add) {
+      var initialDate = __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).isValid() ? __WEBPACK_IMPORTED_MODULE_0_moment___default()(date) : __WEBPACK_IMPORTED_MODULE_0_moment___default()();
       return add ? initialDate.add(add, 'days') : initialDate;
     },
-    isActiveDay(dayMoment) {
-      const formattedDate = dayMoment.format('MM-DD-YYYY'),
-            formattedSelectedDate = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.selectedDate).format('MM-DD-YYYY');
+    isActiveDay: function isActiveDay(dayMoment) {
+      var formattedDate = dayMoment.format('MM-DD-YYYY'),
+          formattedSelectedDate = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.selectedDate).format('MM-DD-YYYY');
 
       return formattedDate === formattedSelectedDate && !this.dateRange;
     },
-    isActiveRangeDay(dayMoment, isStart) {
-      const formattedDate = dayMoment.format('MM-DD-YYYY'),
-            formattedDateStart = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.selectedDateStart).format('MM-DD-YYYY'),
-            formattedDateEnd = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.selectedDateEnd).format('MM-DD-YYYY');
+    isActiveRangeDay: function isActiveRangeDay(dayMoment, isStart) {
+      var formattedDate = dayMoment.format('MM-DD-YYYY'),
+          formattedDateStart = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.selectedDateStart).format('MM-DD-YYYY'),
+          formattedDateEnd = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.selectedDateEnd).format('MM-DD-YYYY');
 
-      const eqSelectedDateStart = formattedDate === formattedDateStart && this.dateRange,
-            eqSelectedDateEnd = formattedDate === formattedDateEnd && this.dateRange;
+      var eqSelectedDateStart = formattedDate === formattedDateStart && this.dateRange,
+          eqSelectedDateEnd = formattedDate === formattedDateEnd && this.dateRange;
 
       return isStart ? eqSelectedDateStart : eqSelectedDateEnd;
     },
-    isWithinActiveRange(dayMoment) {
-      const formattedDate = dayMoment.format('MM-DD-YYYY'),
-            formattedDateStart = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.selectedDateStart).format('MM-DD-YYYY'),
-            formattedDateEnd = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.selectedDateEnd).format('MM-DD-YYYY');
+    isWithinActiveRange: function isWithinActiveRange(dayMoment) {
+      var formattedDate = dayMoment.format('MM-DD-YYYY'),
+          formattedDateStart = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.selectedDateStart).format('MM-DD-YYYY'),
+          formattedDateEnd = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.selectedDateEnd).format('MM-DD-YYYY');
 
       return dayMoment.diff(__WEBPACK_IMPORTED_MODULE_0_moment___default()(this.selectedDateStart), 'days') >= 0 && dayMoment.diff(__WEBPACK_IMPORTED_MODULE_0_moment___default()(this.selectedDateEnd), 'days') <= 0 && this.dateRange;
     },
-    isDisabled(dayMoment) {
-      const notWithinLimits = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.limits.start).diff(dayMoment, 'days') > 0 || __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.limits.end).diff(dayMoment, 'days') < 0;
-      const notCurrentMonth = dayMoment.month() !== this.displayDate.month();
+    isDisabled: function isDisabled(dayMoment) {
+      var notWithinLimits = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.limits.start).diff(dayMoment, 'days') > 0 || __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.limits.end).diff(dayMoment, 'days') < 0;
+      var notCurrentMonth = dayMoment.month() !== this.displayDate.month();
 
       return notWithinLimits || notCurrentMonth;
     },
-    calcDayClass(day) {
+    calcDayClass: function calcDayClass(day) {
       return {
         disabled: day.disabled,
         active: day.active,
@@ -25494,40 +25495,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         'within-active-range': day.withinActiveRange
       };
     },
-    incrementMonth(e, num) {
-      const transitions = document.querySelectorAll('[data-transition="month-change"]');
-      const animation = num > 0 ? 'animate-next' : 'animate-prev';
-      transitions.forEach((transition, i) => transition.classList.add(animation));
-      setTimeout(() => {
-        this.displayDate = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.displayDate).add(num, 'months');
+    incrementMonth: function incrementMonth(e, num) {
+      var _this = this;
+
+      var transitions = document.querySelectorAll('[data-transition="month-change"]');
+      var animation = num > 0 ? 'animate-next' : 'animate-prev';
+      transitions.forEach(function (transition, i) {
+        return transition.classList.add(animation);
+      });
+      setTimeout(function () {
+        _this.displayDate = __WEBPACK_IMPORTED_MODULE_0_moment___default()(_this.displayDate).add(num, 'months');
       }, 200);
-      setTimeout(() => {
-        transitions.forEach(transition => transition.classList.remove(animation));
+      setTimeout(function () {
+        transitions.forEach(function (transition) {
+          return transition.classList.remove(animation);
+        });
       }, 400);
     },
-    handleSelectDate(e, day) {
+    handleSelectDate: function handleSelectDate(e, day) {
       this.dateRange ? this.selectDateRange(e, day) : this.selectDate(e, day);
     },
-    selectDate(e, day) {
+    selectDate: function selectDate(e, day) {
       if (!day.disabled) this.selectedDate = day;
       this.$emit('dateSelected', this.selectedDate.format(this.dateFormat));
     },
-    selectDateRange(e, day) {
+    selectDateRange: function selectDateRange(e, day) {
       if (day.disabled) {
         return;
       };
-      const dayDiff = day.diff(__WEBPACK_IMPORTED_MODULE_0_moment___default()(this.selectedDateStart), 'days');
+      var dayDiff = day.diff(__WEBPACK_IMPORTED_MODULE_0_moment___default()(this.selectedDateStart), 'days');
       if (!this.selectedDateEnd && dayDiff > 0) {
         this.selectedDateEnd = day;
-        const range = { start: this.selectedDateStart.format(this.dateFormat), end: this.selectedDateEnd.format(this.dateFormat) };
+        var range = { start: this.selectedDateStart.format(this.dateFormat), end: this.selectedDateEnd.format(this.dateFormat) };
         this.$emit('dateRangeSelected', range);
       } else {
         this.selectedDateStart = day;
         this.selectedDateEnd = null;
       }
     },
-    dayStyle(day) {
-      let styles = {};
+    dayStyle: function dayStyle(day) {
+      var styles = {};
       if (day.today) styles = { color: this.todayTextColor || this.primaryColor };
       if (day.active || day.activeRangeStart || day.activeRangeEnd) styles = { color: this.activeDateTextColor || this.primaryColor };
       if (day.withinActiveRange) styles = { color: this.activeDateTextColor };
@@ -25619,7 +25626,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __WEBPACK_IMPORTED_MODULE_0_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_1_vue_material___default.a);
 
-const colorProps = {
+var colorProps = {
   hex: '#0918bc',
   hsl: {
     h: 150,
@@ -25642,11 +25649,11 @@ const colorProps = {
   a: 1
 };
 
-const parseStyles = stylesString => {
-  let attrs = {};
-  stylesString.split(/,(?=(?:(?:[^'"]*(?:'|")){2})*[^'"]*$)/).map(attribute => {
+var parseStyles = function parseStyles(stylesString) {
+  var attrs = {};
+  stylesString.split(/,(?=(?:(?:[^'"]*(?:'|")){2})*[^'"]*$)/).map(function (attribute) {
     try {
-      let vals = attribute.split(":");
+      var vals = attribute.split(":");
       attrs[vals[0].trim()] = eval(vals[1].trim());
     } catch (e) {
       console.log(e);
@@ -25661,7 +25668,7 @@ const parseStyles = stylesString => {
     CustomDatepicker: __WEBPACK_IMPORTED_MODULE_2_vue_custom_datepicker___default.a,
     Swatches: __WEBPACK_IMPORTED_MODULE_4_vue_color__["Swatches"]
   },
-  data() {
+  data: function data() {
     return {
       dateRange: false,
       wrapperStylesString: "width:'325px'",
@@ -25677,33 +25684,34 @@ const parseStyles = stylesString => {
       limitsEnd: ""
     };
   },
+
   computed: {
-    formStyles() {
+    formStyles: function formStyles() {
       return {
         background: this.primaryColor.hex
       };
     },
-    calPrimaryColor() {
+    calPrimaryColor: function calPrimaryColor() {
       return this.primaryColor.hex;
     },
-    formattedDate() {
+    formattedDate: function formattedDate() {
       return __WEBPACK_IMPORTED_MODULE_3_moment___default()(this.selectedDate).format(this.dateFormat);
     },
-    formattedDateRange() {
-      const start = __WEBPACK_IMPORTED_MODULE_3_moment___default()(this.selectedDateRangeStart).format(this.dateFormat);
-      const end = this.selectedDateRangeEnd ? __WEBPACK_IMPORTED_MODULE_3_moment___default()(this.selectedDateRangeEnd).format(this.dateFormat) : '...';
-      return `${start} to ${end}`;
+    formattedDateRange: function formattedDateRange() {
+      var start = __WEBPACK_IMPORTED_MODULE_3_moment___default()(this.selectedDateRangeStart).format(this.dateFormat);
+      var end = this.selectedDateRangeEnd ? __WEBPACK_IMPORTED_MODULE_3_moment___default()(this.selectedDateRangeEnd).format(this.dateFormat) : '...';
+      return start + ' to ' + end;
     },
-    wrapperStyles() {
+    wrapperStyles: function wrapperStyles() {
       return parseStyles(this.wrapperStylesString);
     },
-    headerStyles() {
+    headerStyles: function headerStyles() {
       return parseStyles(this.headerStylesString);
     },
-    weekdayStyles() {
+    weekdayStyles: function weekdayStyles() {
       return parseStyles(this.weekdayStylesString);
     },
-    limits() {
+    limits: function limits() {
       return {
         start: this.limitsStart,
         end: this.limitsEnd
@@ -25711,20 +25719,20 @@ const parseStyles = stylesString => {
     }
   },
   methods: {
-    setDate(date) {
+    setDate: function setDate(date) {
       this.selectedDate = date;
     },
-    setDateRange(range) {
+    setDateRange: function setDateRange(range) {
       this.selectedDateRangeStart = range.start;
       this.selectedDateRangeEnd = range.end;
     },
-    changeColor(val) {
+    changeColor: function changeColor(val) {
       this.primaryColor = val;
     },
-    showColorSelector() {
+    showColorSelector: function showColorSelector() {
       this.colorSelectorOpen = true;
     },
-    closeColorSelector(e) {
+    closeColorSelector: function closeColorSelector(e) {
       this.colorSelectorOpen = e.target.classList.contains('vue-color__swatches') || e.target.closest('.vue-color__swatches');
     }
   }
@@ -25744,7 +25752,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 new __WEBPACK_IMPORTED_MODULE_0_vue__["default"]({
   el: '#app',
-  render: h => h(__WEBPACK_IMPORTED_MODULE_1__App_vue___default.a)
+  render: function render(h) {
+    return h(__WEBPACK_IMPORTED_MODULE_1__App_vue___default.a);
+  }
 });
 
 /***/ }),
