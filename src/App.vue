@@ -114,7 +114,7 @@ export default {
       weekdayStylesString: "fontWeight:'100'",
       primaryColor: colorProps,
       selectedDate: moment(),
-      selectedDateRangeStart: moment(),
+      selectedDateRangeStart: null,
       selectedDateRangeEnd: null,
       dateFormat: "YYYY-MM-DD",
       colorSelectorOpen: false,
@@ -135,7 +135,7 @@ export default {
       return moment(this.selectedDate).format(this.dateFormat)
     },
     formattedDateRange() {
-      const start = moment(this.selectedDateRangeStart).format(this.dateFormat);
+      const start = this.selectedDateRangeStart ? moment(this.selectedDateRangeStart).format(this.dateFormat) : '...';
       const end   = this.selectedDateRangeEnd ? moment(this.selectedDateRangeEnd).format(this.dateFormat) : '...';
       return `${start} to ${end}`;
     },
